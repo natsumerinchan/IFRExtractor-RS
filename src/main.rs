@@ -909,6 +909,13 @@ fn uefi_ifr_extract(
                                                 cb.VarStoreId,
                                                 cb.VarStoreInfo,
                                                 cb.Flags).unwrap();
+
+                                        if cb.Flags & (uefi_parser::IfrDefaultFlags::Default as u8) > 0  {
+                                            write!(&mut text, ", Default").unwrap();
+                                        }
+                                        if cb.Flags & (uefi_parser::IfrDefaultFlags::MfgDefault as u8) > 0 {
+                                            write!(&mut text, ", MfgDefault").unwrap();
+                                        }
                                     }
                                     Err(e) => {
                                         write!(&mut text, "RawData: {:02X?}", operation.Data.unwrap())
@@ -1035,6 +1042,13 @@ fn uefi_ifr_extract(
                                                 write!(&mut text, "Value: {}", opt.Value).unwrap();
                                             }
                                         }
+
+                                        if opt.Flags & (uefi_parser::IfrDefaultFlags::Default as u8) > 0  {
+                                            write!(&mut text, ", Default").unwrap();
+                                        }
+                                        if opt.Flags & (uefi_parser::IfrDefaultFlags::MfgDefault as u8) > 0 {
+                                            write!(&mut text, ", MfgDefault").unwrap();
+                                        }
                                     }
                                     Err(e) => {
                                         write!(&mut text, "RawData: {:02X?}", operation.Data.unwrap())
@@ -1068,6 +1082,8 @@ fn uefi_ifr_extract(
                                             )
                                             .unwrap();
                                         }
+
+
                                     }
                                     Err(e) => {
                                         write!(&mut text, "RawData: {:02X?}", operation.Data.unwrap())

@@ -927,6 +927,12 @@ pub struct IfrCheckBox {
     pub Flags: u8,
 }
 
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+pub enum IfrDefaultFlags {
+    Default = 0x01,
+    MfgDefault = 0x02,
+}
+
 pub fn ifr_check_box(input: &[u8]) -> IResult<&[u8], IfrCheckBox> {
     do_parse!(
         input,
