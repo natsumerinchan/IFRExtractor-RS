@@ -716,6 +716,9 @@ fn uefi_ifr_extract(
     let mut text = Vec::new();
     let strings_map = &string_package.string_id_map;
 
+    // Add version number and extraction mode
+    write!(&mut text, "Program version: {}, Extraction mode: UEFI\n", VERSION.unwrap_or("0.0.0")).unwrap();
+
     if let Ok((_, candidate)) =
         uefi_parser::hii_form_package_candidate(&data[form_package.offset..])
     {
@@ -2398,6 +2401,9 @@ fn framework_ifr_extract(
 ) -> () {
     let mut text = Vec::new();
     let strings_map = &string_package.string_id_map;
+
+    // Add version number and extraction mode
+    write!(&mut text, "Program version: {}, Extraction mode: Framework\n", VERSION.unwrap_or("0.0.0")).unwrap();
 
     if let Ok((_, candidate)) =
         framework_parser::hii_form_package_candidate(&data[form_package.offset..])
